@@ -1,11 +1,11 @@
 pipeline {
         // agent any
 	agent { label 'maven' }
-/*	
+	
 	tools {
         maven "maven3"
     }
-*/	
+	
 	
     environment {
         NEXUS_VERSION = "nexus3"
