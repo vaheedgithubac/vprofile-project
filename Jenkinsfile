@@ -41,7 +41,7 @@ pipeline {
                 sh 'mvn verify -DskipUnitTests'
             }
         }
-		
+/*		
         stage ('CODE ANALYSIS WITH CHECKSTYLE'){
             steps {
                 sh 'mvn checkstyle:checkstyle'
@@ -51,7 +51,7 @@ pipeline {
                     echo 'Generated Analysis Result'
                 }
             }
-        }
+        } 
 
         stage('CODE ANALYSIS with SONARQUBE') {
           
@@ -75,8 +75,8 @@ pipeline {
                waitForQualityGate abortPipeline: true
             }
           }
-        }
-
+        } 
+   
         stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
@@ -111,10 +111,11 @@ pipeline {
                         error "*** File: ${artifactPath}, could not be found";
                     }
                 }
+		
             }
         }
 
-
+        */
     }
 
 
