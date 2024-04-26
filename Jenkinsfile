@@ -21,6 +21,8 @@ pipeline {
         
         stage('BUILD'){
             steps {
+		sh 'whoami'
+		sh 'pwd'
                 sh 'mvn clean install -DskipTests'
             }
             post {
