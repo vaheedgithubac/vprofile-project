@@ -1,11 +1,11 @@
 pipeline {
     
 	agent { label 'maven' }
-/*	
+	
 	tools {
-        maven "maven3"
+        maven "maven-396"
     }
-*/	
+	
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
