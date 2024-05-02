@@ -6,7 +6,7 @@
          credentialsId: 'github-credentials'
         ]
 ) */
-@Library('jenkins-shared-library')_
+@Library('jenkins-shared-library')
 
 def gv
 
