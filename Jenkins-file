@@ -30,6 +30,7 @@ pipeline {
                 }
             }
         }
+/*
         stage("build and push image") {
             steps {
                 script {
@@ -45,7 +46,7 @@ pipeline {
                     gv.deployApp()
                 }
             }
-        }
+        }*/
     }
 }
 
