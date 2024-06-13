@@ -2,7 +2,10 @@ pipeline {
   agent { label 'linux' }
   stages {
     stage('Checkout') {
-         steps { checkout scm } 
+         steps { 
+           git branch: 'main' url: 'https://github.com/vaheedgithubac/vprofile-project.git'
+          // checkout scm 
+       } 
      }
   }
 }
