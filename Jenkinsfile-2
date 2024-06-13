@@ -4,7 +4,20 @@ pipeline {
             timestamps()
             }
   stages {
-    stage('Checkout') {
+
+    stage('CLEAN WORKSPACE') {
+         steps { 
+          echo 'Cleaning up WORKSPACE before Pipeline Start executing...!!!'
+          cleanWs() 
+       } 
+      post {
+             success {
+                    echo 'WORKSPACE cleaned up Successfully...!!!'
+                }
+            }
+    }
+
+    stage('CODE CHECKOUT') {
          steps { 
            // git branch:'main', url:'https://github.com/vaheedgithubac/vprofile-project.git'
            checkout scm 
