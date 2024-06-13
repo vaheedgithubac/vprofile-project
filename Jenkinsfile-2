@@ -31,12 +31,16 @@ pipeline {
       } 
      post {
                 always {
-                    if (fileExists('gitleaks.json')) {
-                        echo 'Generated GITLEAKS Scan Analysis Result'
-                    } 
-                    else { echo 'Unable to generate GITLEAKS Scan Analysis Result' }
-                    
-                }
+                          script {
+                                    if (fileExists('gitleaks.json')) {
+                                    echo 'Generated GITLEAKS Scan Analysis Result'
+                                    } 
+                                    else { echo 'Unable to generate GITLEAKS Scan Analysis Result' } 
+                                 }
+                        }
+
+
+
            }
      }
 
