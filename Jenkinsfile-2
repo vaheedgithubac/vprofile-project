@@ -29,6 +29,11 @@ pipeline {
                 sh "docker run -v ${env.WORKSPACE}:/path -w /path zricethezav/gitleaks:latest detect --source . --verbose -f json -r gitleaks.json"
              }
       } 
+     post {
+                success {
+                    echo 'Generated GITLEAKS Scan Analysis Result...!'
+                }
+            }
   }
 
 
