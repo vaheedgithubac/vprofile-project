@@ -10,18 +10,8 @@ pipeline {
            checkout scm 
        } 
      }
-/*
-   stage('GITLEAKS SCAN') {
-      agent any
-      steps {
-                catchError(buildResult: 'UNSTABLE', message: 'ERROR', stageResult: 'FAILURE') {
-                sh 'docker run -v /var/lib/jenkins/workspace/Gitleaks:/path -w /path zricethezav/gitleaks:latest detect --source . --verbose -f json -r gitleaks.json'
-             }
-      } 
-  }
-*/
 
-   stage('Check') {
+    stage('Check') {
          steps { 
            echo "WORKSPACE: ${env.WORKSPACE}"
            echo "JOB_NAME: ${env.JOB_NAME}"
@@ -29,6 +19,18 @@ pipeline {
            echo "BUILD_URL: ${env.BUILD_URL}"
        } 
      }
+
+    stage('GITLEAKS SCAN') {
+      agent any
+      steps {
+                catchError(buildResult: 'UNSTABLE', message: 'ERROR', stageResult: 'FAILURE') {
+                sh 'docker run -v ${env.WORKSPACE}:/path -w /path zricethezav/gitleaks:latest detect --source . --verbose -f json -r gitleaks.json'
+             }
+      } 
+  }
+
+
+   
 
 
 
