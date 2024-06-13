@@ -30,11 +30,15 @@ pipeline {
              }
       } 
      post {
-                success {
-                    echo 'Generated GITLEAKS Scan Analysis Result...!'
+                always {
+                    if (fileExists('gitleaks.json')) {
+                        echo 'echo 'Generated GITLEAKS Scan Analysis Result...!''
+                    } 
+                    else { echo 'Unable to generate GITLEAKS Scan Analysis Result' }
+                    
                 }
-            }
-  }
+           }
+     }
 
 
    
