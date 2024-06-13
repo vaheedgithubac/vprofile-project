@@ -21,7 +21,7 @@ pipeline {
   }
 */
 
-   stage('Checkout') {
+   stage('Check') {
          steps { 
            echo "WORKSPACE: ${env.WORKSPACE}"
            echo "JOB_NAME: ${env.JOB_NAME}"
