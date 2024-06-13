@@ -26,7 +26,7 @@ pipeline {
       steps {
                 catchError(buildResult: 'UNSTABLE', message: 'ERROR', stageResult: 'FAILURE') {
                 echo "${pwd}/workspace/${env.JOB_BASE_NAME}"
-                sh 'docker run -v "${pwd}/workspace/${env.JOB_BASE_NAME}":/path -w /path zricethezav/gitleaks:latest detect --source . --verbose -f json -r gitleaks.json'
+                sh 'docker run -v "${env.WORKSPACE}":/path -w /path zricethezav/gitleaks:latest detect --source . --verbose -f json -r gitleaks.json'
              }
       } 
   }
