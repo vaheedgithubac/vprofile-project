@@ -1,5 +1,8 @@
 pipeline {
   agent any // { label 'linux' }
+  tools { jdk 'JDK-11'
+          maven 'maven-397'
+        }
   options { skipDefaultCheckout true
             timestamps()
             }
@@ -7,6 +10,7 @@ pipeline {
 
     stage('CLEAN WORKSPACE') {
          steps { 
+          sh 'mvn --version'
           echo 'Cleaning up WORKSPACE before Pipeline Start executing...!!!'
           cleanWs() 
        } 
