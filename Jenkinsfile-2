@@ -51,11 +51,14 @@ pipeline {
                                     else { echo 'Unable to generate GITLEAKS Scan Analysis Result...!!!' } 
                                  }
                         }
-
-
-
-           }
+          }
      }
+
+     stage('UNIT TEST'){
+            steps {
+                sh 'mvn test'
+            }
+        }
 
 
    
