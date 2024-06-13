@@ -1,11 +1,18 @@
 pipeline {
   agent { label 'linux' }
-  options { skipDefaultCheckout true}
+  options { skipDefaultCheckout true
+            timestamps()
+            }
   stages {
     stage('Checkout') {
          steps { 
            git branch:'main', url:'https://github.com/vaheedgithubac/vprofile-project.git'
           // checkout scm 
+       } 
+     }
+    stage('Hello') {
+         steps { 
+         echo 'Hello World...!'
        } 
      }
   }
