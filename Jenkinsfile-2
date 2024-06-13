@@ -32,7 +32,7 @@ pipeline {
      post {
                 always {
                     if (fileExists('gitleaks.json')) {
-                        echo 'echo 'Generated GITLEAKS Scan Analysis Result...!''
+                        echo 'echo 'Generated GITLEAKS Scan Analysis Result...!'
                     } 
                     else { echo 'Unable to generate GITLEAKS Scan Analysis Result' }
                     
