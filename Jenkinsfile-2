@@ -1,6 +1,8 @@
 pipeline {
   agent { label 'linux' }
   stages {
-    stage('Checkout') { checkout scm }
+    stage('Checkout') {
+         steps { checkout scm } 
+     }
   }
 }
