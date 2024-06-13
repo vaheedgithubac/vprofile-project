@@ -21,7 +21,7 @@ pipeline {
      }
 
     stage('GITLEAKS SCAN') {
-      agent any
+      // agent any
       steps {
                 catchError(buildResult: 'UNSTABLE', message: 'ERROR', stageResult: 'FAILURE') {
                 sh 'docker run -v ${env.WORKSPACE}:/path -w /path zricethezav/gitleaks:latest detect --source . --verbose -f json -r gitleaks.json'
