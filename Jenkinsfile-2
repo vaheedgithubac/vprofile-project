@@ -6,8 +6,8 @@ pipeline {
   stages {
     stage('Checkout') {
          steps { 
-           git branch:'main', url:'https://github.com/vaheedgithubac/vprofile-project.git'
-          // checkout scm 
+           // git branch:'main', url:'https://github.com/vaheedgithubac/vprofile-project.git'
+           checkout scm 
        } 
      }
     stage('Hello') {
