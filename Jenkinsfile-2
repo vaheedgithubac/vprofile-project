@@ -52,7 +52,7 @@ pipeline {
                               if (fileExists('gitleaks.json')) { 
                                   echo 'Generated GITLEAKS Scan Analysis Result...!!!'
                                   echo 'Uploading GITLEAKS Scan Analysis Result to DEFECT DOJO...!!!'
-                                  python3 upload-reports.py gitleaks.json
+                                  sh 'python3 upload-reports.py gitleaks.json'
                               } 
                                     else { echo 'Unable to generate GITLEAKS Scan Analysis Report...!!!' } 
                             }
@@ -93,7 +93,7 @@ pipeline {
                               if (fileExists('trivyfs.json')) { 
                                  echo 'Generated TRIVY FILESYSTEM SCAN Analysis Report...!!!' 
                                  echo 'Uploading TRIVY FILESYSTEM SCAN Analysis Report to DEFECT DOJO...!!!'
-                                 python3 upload-reports.py trivyfs.json
+                                 sh 'python3 upload-reports.py trivyfs.json'
                               } 
                               else { echo 'Unable to generate TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
                             }
