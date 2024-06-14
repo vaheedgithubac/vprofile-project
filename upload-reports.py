@@ -1,7 +1,7 @@
 import requests
 import sys
 
-filename = sys.argv[1]
+file_name = sys.argv[1]
 scan_type = ''
 
 if file_name == 'gitleaks.json':
@@ -26,17 +26,17 @@ data = {
 }
 
 files = {
-  'file': open(filename, 'rb')
+  'file': open(file_name, 'rb')
 }
 
 response = requests.post(url, headers=headers, data=data, files=files)
 
 if response.status_code ==201:
   
-  # print(filename, "Scan results uploaded to DEFECT-DOJO successfully...!!")
-  # print(f"{filename}  Scan results uploaded to DEFECT-DOJO successfully...!!")
+  # print(file_name, "Scan results uploaded to DEFECT-DOJO successfully...!!")
+  # print(f"{file_name}  Scan results uploaded to DEFECT-DOJO successfully...!!")
 
-  print("{} Scan results uploaded to DEFECT-DOJO successfully...!!".format(filename))
+  print("{} Scan results uploaded to DEFECT-DOJO successfully...!!".format(file_name))
 
 else:
   print(f'Failed to upload scan results: {response.content}') 
