@@ -47,12 +47,12 @@ pipeline {
              }
       } 
      post {
-                always {
-                          script {
-                                    if (fileExists('gitleaks.json')) { echo 'Generated GITLEAKS Scan Analysis Result...!!!' } 
+            always {
+                     script {
+                              if (fileExists('gitleaks.json')) { echo 'Generated GITLEAKS Scan Analysis Result...!!!' } 
                                     else { echo 'Unable to generate GITLEAKS Scan Analysis Result...!!!' } 
-                                 }
-                        }
+                               }
+                   }
           }
      }
 
@@ -65,12 +65,12 @@ pipeline {
      stage ('CODE COVERAGE - JACOCO') {
         steps { sh 'mvn org.jacoco:jacoco-maven-plugin:0.8.4:prepare-agent' }
        post {
-                always {
-                          script {
-                                    if (fileExists('target/jacoco.exec')) { echo 'Generated JACOCO CODE COVERAGE Scan Analysis Result...!!!' } 
-                                    else { echo 'Unable to generate JACOCO CODE COVERAGE Scan Analysis Result...!!!' } 
-                                 }
-                        }
+              always {
+                       script {
+                                if (fileExists('target/jacoco.exec')) { echo 'Generated JACOCO CODE COVERAGE Scan Analysis Result...!!!' } 
+                                else { echo 'Unable to generate JACOCO CODE COVERAGE Scan Analysis Result...!!!' } 
+                              }
+                     }
           }
         }
    
@@ -84,12 +84,12 @@ pipeline {
              }
       } 
      post {
-                always {
-                          script {
-                                    if (fileExists('trivyfs.json')) { echo 'Generated TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
-                                    else { echo 'Unable to generate TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
-                                 }
-                        }
+            always {
+                     script {
+                              if (fileExists('trivyfs.json')) { echo 'Generated TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
+                              else { echo 'Unable to generate TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
+                            }
+                   }
           }
      }
 
