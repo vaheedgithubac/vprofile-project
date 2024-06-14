@@ -8,7 +8,7 @@ if file_name == 'gitleaks.json':
     scan_type = 'Gitleaks Scan'
 elif file_name == 'trivyfs.json' or file_name == 'trivyimg.json':
     scan_type = 'Trivy Scan'
-elif file_name == 'owaspdc.xml':
+elif file_name == 'dependency-check-report.xml':
     scan_type = 'Dependency Check Scan'    
 
 headers = {
