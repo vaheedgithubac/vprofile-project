@@ -49,9 +49,13 @@ pipeline {
      post {
             always {
                      script {
-                              if (fileExists('gitleaks.json')) { echo 'Generated GITLEAKS Scan Analysis Result...!!!' } 
-                                    else { echo 'Unable to generate GITLEAKS Scan Analysis Result...!!!' } 
-                               }
+                              if (fileExists('gitleaks.json')) { 
+                                  echo 'Generated GITLEAKS Scan Analysis Result...!!!'
+                                  echo 'Uploading GITLEAKS Scan Analysis Result to DEFECT DOJO...!!!'
+                                  python3 upload-reports.py gitleaks.json
+                              } 
+                                    else { echo 'Unable to generate GITLEAKS Scan Analysis Report...!!!' } 
+                            }
                    }
           }
      }
@@ -67,8 +71,8 @@ pipeline {
        post {
               always {
                        script {
-                                if (fileExists('target/jacoco.exec')) { echo 'Generated JACOCO CODE COVERAGE Scan Analysis Result...!!!' } 
-                                else { echo 'Unable to generate JACOCO CODE COVERAGE Scan Analysis Result...!!!' } 
+                                if (fileExists('target/jacoco.exec')) { echo 'Generated JACOCO CODE COVERAGE Scan Analysis Report...!!!' } 
+                                else { echo 'Unable to generate JACOCO CODE COVERAGE Scan Analysis Report...!!!' } 
                               }
                      }
           }
@@ -86,7 +90,11 @@ pipeline {
      post {
             always {
                      script {
-                              if (fileExists('trivyfs.json')) { echo 'Generated TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
+                              if (fileExists('trivyfs.json')) { 
+                                 echo 'Generated TRIVY FILESYSTEM SCAN Analysis Report...!!!' 
+                                 echo 'Uploading TRIVY FILESYSTEM SCAN Analysis Report to DEFECT DOJO...!!!'
+                                 python3 upload-reports.py trivyfs.json
+                              } 
                               else { echo 'Unable to generate TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
                             }
                    }
@@ -102,7 +110,11 @@ pipeline {
             post {
                 success {
                          script {
-                              if (fileExists('dependency-check-report.xml')) { echo 'Generated OWASP DEPENDENCY CHECK SCAN Analysis Result...!!!' } 
+                              if (fileExists('dependency-check-report.xml')) { 
+                                  echo 'Generated OWASP DEPENDENCY CHECK SCAN Analysis Report...!!!' 
+                                  echo 'Uploading OWASP DEPENDENCY CHECK SCAN Analysis Report to DEFECT DOJO...!!!'
+                                  python3 upload-reports.py dependency-check-report.xml
+                              } 
                               else { echo 'Unable to generate OWASP DEPENDENCY CHECK SCAN Analysis Result...!!!' } 
                             }
                 }
