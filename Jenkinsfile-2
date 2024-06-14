@@ -67,7 +67,7 @@ pipeline {
        post {
                 always {
                           script {
-                                    if (fileExists('target/jacoco.exec')) { echo 'Generated JACOCO CODE COVERAGE  Scan Analysis Result...!!!' } 
+                                    if (fileExists('target/jacoco.exec')) { echo 'Generated JACOCO CODE COVERAGE Scan Analysis Result...!!!' } 
                                     else { echo 'Unable to generate JACOCO CODE COVERAGE Scan Analysis Result...!!!' } 
                                  }
                         }
@@ -86,8 +86,8 @@ pipeline {
      post {
                 always {
                           script {
-                                    if (fileExists('trivy.json')) { echo 'Generated TRIVY Scan Analysis Result...!!!' } 
-                                    else { echo 'Unable to generate TRIVY Scan Analysis Result...!!!' } 
+                                    if (fileExists('trivy.json')) { echo 'Generated TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
+                                    else { echo 'Unable to generate TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
                                  }
                         }
           }
