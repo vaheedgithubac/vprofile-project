@@ -80,13 +80,13 @@ pipeline {
       steps {
                 catchError(buildResult: 'UNSTABLE', message: 'ERROR', stageResult: 'FAILURE') {
                 echo "${pwd}/workspace/${env.JOB_BASE_NAME}"
-                sh "docker run -v ${env.WORKSPACE}:/path -w /path aquasec/trivy:latest fs . -f json -o /path/trivy.json --severity LOW,MEDIUM,HIGH,CRITICAL"
+                sh "docker run -v ${env.WORKSPACE}:/path -w /path aquasec/trivy:latest fs . -f json -o /path/trivyfs.json --severity LOW,MEDIUM,HIGH,CRITICAL"
              }
       } 
      post {
                 always {
                           script {
-                                    if (fileExists('trivy.json')) { echo 'Generated TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
+                                    if (fileExists('trivyfs.json')) { echo 'Generated TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
                                     else { echo 'Unable to generate TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
                                  }
                         }
