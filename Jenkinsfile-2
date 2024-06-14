@@ -93,6 +93,23 @@ pipeline {
           }
      }
 
+    stage('SCA - OWASP DEPENDENCY CHECK') {
+          steps {
+                dependencyCheck additionalArguments: ' --scan . ', odcInstallation: 'DC'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+
+            post {
+                success {
+                         script {
+                              if (fileExists('dependency-check-report.xml')) { echo 'Generated OWASP DEPENDENCY CHECK SCAN Analysis Result...!!!' } 
+                              else { echo 'Unable to generate OWASP DEPENDENCY CHECK SCAN Analysis Result...!!!' } 
+                            }
+                }
+            }
+        }
+
+
 
 
 }
