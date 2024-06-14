@@ -101,7 +101,25 @@ pipeline {
           }
      }
 
-   
+   stage('SCA - OWASP DEPENDENCY CHECK') {
+          steps {
+                dependencyCheck additionalArguments: ' --scan . ', odcInstallation: 'DC'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+
+            post {
+                always {
+                         script {
+                              if (fileExists('dependency-check-report.xml')) { 
+                                  echo 'Generated OWASP DEPENDENCY CHECK SCAN Analysis Report...!!!' 
+                                  echo 'Uploading OWASP DEPENDENCY CHECK SCAN Analysis Report to DEFECT DOJO...!!!'
+                                  sh 'python3 upload-reports.py dependency-check-report.xml'
+                              } 
+                              else { echo 'Unable to generate OWASP DEPENDENCY CHECK SCAN Analysis Result...!!!' } 
+                            }
+                }
+            }
+        }
 
 
 
