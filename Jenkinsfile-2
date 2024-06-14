@@ -1,5 +1,5 @@
 pipeline {
-  agent any // { label 'linux' }
+  agent any                            // { label 'linux' }
   tools { jdk 'JDK-11'
           maven 'maven-397'
         }
@@ -49,9 +49,7 @@ pipeline {
      post {
                 always {
                           script {
-                                    if (fileExists('gitleaks.json')) {
-                                    echo 'Generated GITLEAKS Scan Analysis Result...!!!'
-                                    } 
+                                    if (fileExists('gitleaks.json')) { echo 'Generated GITLEAKS Scan Analysis Result...!!!' } 
                                     else { echo 'Unable to generate GITLEAKS Scan Analysis Result...!!!' } 
                                  }
                         }
