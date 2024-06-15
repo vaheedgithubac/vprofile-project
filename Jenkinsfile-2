@@ -10,15 +10,11 @@ pipeline {
 
     stage('CLEAN WORKSPACE') {
          steps { 
-          sh 'mvn --version'
-          echo 'Cleaning up WORKSPACE before Pipeline Start executing...!!!'
-          cleanWs() 
-       } 
-      post {
-             success {
-                    echo 'WORKSPACE cleaned up Successfully...!!!'
-                }
-            }
+                 sh 'mvn --version'
+                 echo 'Cleaning up WORKSPACE before Pipeline Start executing...!!!'
+                 cleanWs() 
+        } 
+      post { success { echo 'WORKSPACE cleaned up Successfully...!!!' } }
     }
 
     stage('CODE CHECKOUT') {
@@ -55,6 +51,7 @@ pipeline {
                      }
           }
     }
+
     stage('UPLOAD GITLEAKS SCAN REPORT - DEFECT DOJO' ) {
        steps {
                script {
@@ -66,6 +63,7 @@ pipeline {
                         else { echo 'GITLEAKS Scan Analysis Report NOT EXISTS...!!!' } 
                        }
                    }
+      post { success { echo 'UPLOADED...GITLEAKS SCAN Analysis Report to DEFECT DOJO...!!!' } }     
           }
      
 
@@ -99,19 +97,30 @@ pipeline {
      post {
             always {
                      script {
-                              if (fileExists('trivyfs.json')) { 
-                                 echo 'Generated TRIVY FILESYSTEM SCAN Analysis Report...!!!' 
-                                 echo 'Uploading TRIVY FILESYSTEM SCAN Analysis Report to DEFECT DOJO...!!!'
-                                 sh 'python3 upload-reports.py trivyfs.json'
-                              } 
-                              else { echo 'Unable to generate TRIVY FILESYSTEM SCAN Analysis Result...!!!' } 
-                            }
-                   }
-          }
-     }
+                              if (fileExists('trivyfs.json')) { echo 'Generated TRIVY FILESYSTEM SCAN Analysis Report...!!!' } 
+                              else { echo 'Unable to generate TRIVY FILESYSTEM SCAN Analysis Result...!!!' }  
+                            } 
+                               
+                         }
+                 }
+       }
 
+    stage('UPLOAD TRIVY FILESYSTEM SCAN REPORT - DEFECT DOJO' ) {
+       steps {
+               script {
+                        if (fileExists('trivyfs.json')) { 
+                            echo 'TRIVY FILESYSTEM SCAN Analysis Report EXISTS...!!!'
+                            echo 'UPLOADING...TRIVY FILESYSTEM SCAN Analysis Report to DEFECT DOJO...!!!'
+                            sh 'python3 upload-reports.py trivyfs.json'
+                     } 
+                        else { echo 'TRIVY FILESYSTEM SCAN Analysis Report NOT EXISTS...!!!' } 
+                       }
+                   }
+               post { success { echo 'UPLOADED...TRIVY FILESYSTEM SCAN Analysis Report to DEFECT DOJO...!!!' } }
+          }
+     
     stage('SCA - OWASP DEPENDENCY CHECK') {
-           steps {
+       steps {
                 dependencyCheck additionalArguments: ' --scan . ', odcInstallation: 'DC'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
@@ -119,24 +128,33 @@ pipeline {
             post {
                 always {
                          script {
-                              if (fileExists('dependency-check-report.xml')) { 
-                                  echo 'Generated OWASP DEPENDENCY CHECK SCAN Analysis Report...!!!' 
-                                //  echo 'Uploading OWASP DEPENDENCY CHECK SCAN Analysis Report to DEFECT DOJO...!!!'
-                                //  sh 'python3 upload-reports.py dependency-check-report.xml'
-                              } 
+                              if (fileExists('dependency-check-report.xml')) { echo 'Generated OWASP DEPENDENCY CHECK SCAN Analysis Report...!!!' }
                               else { echo 'Unable to generate OWASP DEPENDENCY CHECK SCAN Analysis Result...!!!' } 
-                            }
+                         }
                 }
             }
         }
- 
-  stage('CODE ANALYSIS - SONARQUBE') {
-          
-      environment {
+
+  stage('UPLOAD OWASP DEPENDENCY CHECK SCAN REPORT - DEFECT DOJO' ) {
+       steps {
+               script {
+                        if (fileExists('dependency-check-report.xm')) { 
+                            echo 'OWASP DEPENDENCY CHECK SCAN Analysis Report EXISTS...!!!'
+                            echo 'UPLOADING...OWASP DEPENDENCY CHECK SCAN Analysis Report to DEFECT DOJO...!!!'
+                            sh 'python3 upload-reports.py dependency-check-report.xml'
+                        } 
+                        else { echo 'OWASP DEPENDENCY CHECK SCAN Analysis Report NOT EXISTS...!!!' } 
+                       }
+                   }
+       post { success { echo 'UPLOADED...OWASP DEPENDENCY CHECK SCAN Analysis Report to DEFECT DOJO...!!!' } }
+ }
+
+  stage('SONARQUBE - CODE ANALYSIS') {
+     environment {
              scannerHome = tool 'sonarscanner4'
           }
 
-          steps {
+       steps {
             withSonarQubeEnv('sonar-server') {
                sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
                    -Dsonar.projectName=vprofile-repo \
@@ -149,7 +167,7 @@ pipeline {
             }
             
           }
-        }
+ }
 
   stage('Quality Gate Check') {
             steps {
@@ -157,15 +175,12 @@ pipeline {
                     script {
                         def qualityGateStatus = waitForQualityGate()
 
-                        if (qualityGateStatus == 'OK') {
-                            echo 'Quality gate passed! Proceeding with the pipeline...!!!'
-                        } else {
-                            error 'Quality gate failed. Stopping the pipeline...!'
-                        }
+                        if (qualityGateStatus == 'OK') { echo 'Quality gate passed! Proceeding with the pipeline...!!!' } 
+                        else { error 'Quality gate failed. Stopping the pipeline...!' }
                     }
                 }
-            }
-        }  
+          }
+  }  
 
 } // stages
 
