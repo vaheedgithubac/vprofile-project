@@ -51,8 +51,8 @@ pipeline {
                      script {
                               if (fileExists('gitleaks.json')) { 
                                   echo 'Generated GITLEAKS Scan Analysis Result...!!!'
-                                  echo 'Uploading GITLEAKS Scan Analysis Result to DEFECT DOJO...!!!'
-                                  sh 'python3 upload-reports.py gitleaks.json'
+                                //  echo 'Uploading GITLEAKS Scan Analysis Result to DEFECT DOJO...!!!'
+                                //  sh 'python3 upload-reports.py gitleaks.json'
                               } 
                                     else { echo 'Unable to generate GITLEAKS Scan Analysis Report...!!!' } 
                             }
@@ -112,8 +112,8 @@ pipeline {
                          script {
                               if (fileExists('dependency-check-report.xml')) { 
                                   echo 'Generated OWASP DEPENDENCY CHECK SCAN Analysis Report...!!!' 
-                                  echo 'Uploading OWASP DEPENDENCY CHECK SCAN Analysis Report to DEFECT DOJO...!!!'
-                                  sh 'python3 upload-reports.py dependency-check-report.xml'
+                                //  echo 'Uploading OWASP DEPENDENCY CHECK SCAN Analysis Report to DEFECT DOJO...!!!'
+                                //  sh 'python3 upload-reports.py dependency-check-report.xml'
                               } 
                               else { echo 'Unable to generate OWASP DEPENDENCY CHECK SCAN Analysis Result...!!!' } 
                             }
