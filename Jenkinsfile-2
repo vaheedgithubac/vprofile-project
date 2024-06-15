@@ -1,6 +1,6 @@
 pipeline {
   agent any                            // { label 'linux' }
-  tools { jdk 'JDK-11'
+  tools { jdk 'JDK-17'
           maven 'maven-397'
         }
   options { skipDefaultCheckout true
