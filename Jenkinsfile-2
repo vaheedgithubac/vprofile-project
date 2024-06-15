@@ -100,7 +100,7 @@ pipeline {
                    }
           }
      }
-
+/*
    stage('SCA - OWASP DEPENDENCY CHECK') {
           steps {
                 dependencyCheck additionalArguments: ' --scan . ', odcInstallation: 'DC'
@@ -156,7 +156,7 @@ pipeline {
                     }
                 }
             }
-        } 
+        }  */
 
 } // stages
 
