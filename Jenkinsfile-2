@@ -135,7 +135,7 @@ pipeline {
                    -Dsonar.sources=src/ \
                    -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
                    -Dsonar.junit.reportPaths=target/surefire-reports/ \
-                   -Dsonar.jacoco.reportPaths=target/jacoco.exec \
+                   -Dsonar.jacoco.reportPaths=target/jacoco.exec'''
                   // -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
             }
             
