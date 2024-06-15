@@ -46,19 +46,28 @@ pipeline {
                 sh "docker run -v ${env.WORKSPACE}:/path -w /path zricethezav/gitleaks:latest detect --source . --verbose -f json -r gitleaks.json"
              }
       } 
-     post {
-            always {
-                     script {
-                              if (fileExists('gitleaks.json')) { 
-                                  echo 'Generated GITLEAKS Scan Analysis Result...!!!'
-                                //  echo 'Uploading GITLEAKS Scan Analysis Result to DEFECT DOJO...!!!'
-                                //  sh 'python3 upload-reports.py gitleaks.json'
-                              } 
-                                    else { echo 'Unable to generate GITLEAKS Scan Analysis Report...!!!' } 
-                            }
+      post {
+              always {
+                       script {
+                                if (fileExists('gitleaks.json')) { echo 'Generated GITLEAKS Scan Analysis Report...!!!' } 
+                                else { echo 'Unable to generate GITLEAKS Scan Analysis Report...!!!' } 
+                              }
+                     }
+          }
+    }
+    stage('UPLOAD GITLEAKS SCAN REPORT - DEFECT DOJO' ) {
+       steps {
+               script {
+                        if (fileExists('gitleaks.json')) { 
+                            echo 'GITLEAKS Scan Analysis Report EXISTS...!!!'
+                            echo 'Uploading GITLEAKS Scan Analysis Report to DEFECT DOJO...!!!'
+                            sh 'python3 upload-reports.py gitleaks.json'
+                     } 
+                        else { echo 'GITLEAKS Scan Analysis Report NOT EXISTS...!!!' } 
+                       }
                    }
           }
-     }
+     
 
      stage('UNIT TEST'){
             steps {
